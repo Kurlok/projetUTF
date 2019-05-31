@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { BlocosService, Bloco } from 'src/app/services/blocos.service';
+
+
 
 @Component({
   selector: 'app-blocos',
@@ -8,9 +12,12 @@ import { MenuController } from '@ionic/angular';
 })
 export class BlocosPage implements OnInit {
 
-  constructor() { }
+  private blocos: Observable<Bloco[]>;
+
+  constructor(private blocosService: BlocosService) { }
 
   ngOnInit() {
+    this.blocos = this.blocosService.getBlocos();
   }
 
 }
