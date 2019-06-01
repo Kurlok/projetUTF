@@ -31,10 +31,22 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button>Qualquer Frase</ion-button>
+          <ion-button (click)="loadMap()" >Qualquer Frase</ion-button>
           <ion-col text-center>
             Your Registered EmailID : {{userEmail}}
           </ion-col>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+            <div class="map-wrapper">
+                <div id="map_center">
+                </div>
+                <div #map id="map"></div>
+              </div>
+              <div id="address">
+                <span>{{address}}</span>
+              </div>
         </ion-col>
       </ion-row>
     </ion-grid>
