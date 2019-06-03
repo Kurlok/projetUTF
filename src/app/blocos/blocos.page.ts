@@ -18,6 +18,7 @@ export class BlocosPage implements OnInit {
 
   ngOnInit() {
     this.blocos = this.blocosService.getBlocos();
+    
   }
 
 }

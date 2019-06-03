@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlocosService, Bloco } from 'src/app/services/blocos.service';
 import { ToastController } from '@ionic/angular';
+import { rootRoute } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-blocos-cadastro',
@@ -35,7 +36,7 @@ export class BlocosCadastroPage implements OnInit {
  
   addBloco() {
     this.blocoService.addBloco(this.bloco).then(() => {
-      this.router.navigateByUrl('/');
+     // this.router.navigateByUrl('/home');
       this.showToast('Bloco adicionado');
     }, err => {
       this.showToast('Houve um erro ao adicionar seu bloco:(');
@@ -44,8 +45,8 @@ export class BlocosCadastroPage implements OnInit {
  
   deleteBloco() {
     this.blocoService.deleteBloco(this.bloco.id).then(() => {
-      this.router.navigateByUrl('/');
-      this.showToast('Bloco deletado');
+    //  this.router.navigateByUrl('/home');
+    this.showToast('Bloco deletado');
     }, err => {
       this.showToast('Houve um erro ao deletar seu bloco:(');
     });
@@ -53,6 +54,7 @@ export class BlocosCadastroPage implements OnInit {
  
   updateBloco() {
     this.blocoService.updateBloco(this.bloco).then(() => {
+      //      this.router.navigateByUrl('/home');
       this.showToast('Bloco atualizado');
     }, err => {
       this.showToast('Houve um erro ao atualizar seu bloco:(');

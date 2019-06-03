@@ -54,7 +54,7 @@ export class BlocosService {
   }
  
   updateBloco(bloco: Bloco): Promise<void> {
-    return this.blocoCollection.doc(bloco.id).update({ name: bloco.nome, notes: bloco.descricao });
+    return this.blocoCollection.doc(bloco.id).update({ name: bloco.nome, descricao: bloco.descricao, latitude: bloco.latitude, longitude: bloco.longitude, raio: bloco.raio });
   }
  
   deleteBloco(id: string): Promise<void> {

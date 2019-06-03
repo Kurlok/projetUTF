@@ -32,7 +32,7 @@
     <ion-grid>
       <ion-row *ngFor="let bloco of (blocos | async)">
         <ion-col>
-          <ion-card button [routerLink]="['/bloco', bloco.id]">
+          <ion-card button [routerLink]="['/bloco', bloco.id]" routerDirection="root">
             <ion-card-header>
               <ion-card-title>
                 {{ bloco.nome }}
