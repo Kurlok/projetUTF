@@ -49,7 +49,7 @@ export class HomePage implements OnInit {
       let latLng = new google.maps.LatLng(-25.051196, -50.132609);
       let mapOptions = {
         center: latLng,
-        zoom: 12,
+        zoom: 16,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
  
