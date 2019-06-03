@@ -21,7 +21,6 @@ export class HomePage implements OnInit {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   address:string;
-  
   userEmail: string;
 
   constructor(
@@ -40,11 +39,12 @@ export class HomePage implements OnInit {
     }else{
       this.navCtrl.navigateBack('');
     }
-    this.loadMap(this.blocos);
+    this.loadMap();
 
   }
 
-  loadMap(blocos) {
+  loadMap() {
+
     this.geolocation.getCurrentPosition().then((resp) => {
       let latLng = new google.maps.LatLng(-25.051196, -50.132609);
       let mapOptions = {
@@ -68,18 +68,23 @@ export class HomePage implements OnInit {
 
       var myLatLng = {lat: -25.051196, lng: -50.132609};
 
-      
-      var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: this.map,
-        title: 'Nome do bloco'
-      });
+
+      // this.blocos.subscribe(items => {           
+      //       console.log('this.nomeBloco é', items[2].nome.toString());
+      //       var marker = new google.maps.Marker({
+      //         position: myLatLng,
+      //         map: this.map,
+      //         title: items[2].nome.toString()
+      //       });      
+      //   }
+      // );
+     
 
     }).catch((error) => {
       console.log('Error getting location', error);
     });
   }
-
+  
   getAddressFromCoords(lattitude, longitude) {
     console.log("getAddressFromCoords "+lattitude+" "+longitude);
     let options: NativeGeocoderOptions = {
