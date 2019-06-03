@@ -1,3 +1,4 @@
+
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
@@ -26,7 +27,7 @@
     </ion-content>
   </ion-menu>
   <ion-router-outlet main></ion-router-outlet>
-<ion-content padding>
+  <div class="ion-padding">
  
   <ion-item>
     <ion-label position="stacked">Nome</ion-label>
@@ -48,6 +49,7 @@
     <ion-label position="stacked">Raio</ion-label>
     <ion-input [(ngModel)]="bloco.raio"></ion-input>
   </ion-item>
+</div>
 </ion-content>
  
 <ion-footer *ngIf="!bloco.id">
@@ -60,7 +62,7 @@
 </ion-footer>
  
 <ion-footer *ngIf="bloco.id">
-  <ion-row no-padding text-center>
+  <ion-row  text-center>
     <ion-col size="6">
       <ion-button expand="block" fill="outline" color="danger" (click)="deleteBloco()">
         <ion-icon name="trash" slot="start"></ion-icon>
