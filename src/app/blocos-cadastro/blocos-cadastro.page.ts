@@ -13,7 +13,10 @@ export class BlocosCadastroPage implements OnInit {
  
   bloco: Bloco = {
     nome: '',
-    descricao: ''
+    descricao: '',
+    latitude: null,
+    longitude: null,
+    raio: null
   };
  
   constructor(private activatedRoute: ActivatedRoute, private blocoService: BlocosService,

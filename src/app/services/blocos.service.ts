@@ -8,7 +8,10 @@ import { Observable } from 'rxjs';
 export interface Bloco {
   id?: string,
   nome: string,
-  descricao: string
+  descricao: string,
+  latitude: number,
+  longitude: number,
+  raio: number
 }
 
 @Injectable({

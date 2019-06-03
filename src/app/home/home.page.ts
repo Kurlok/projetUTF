@@ -4,6 +4,8 @@ import { NavController, ModalController } from '@ionic/angular';
 import { AuthenticateService } from '../services/authentication.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
+import { BlocosService, Bloco } from 'src/app/services/blocos.service';
+import { Observable, Subject } from 'rxjs';
 
 declare var google;
 
@@ -14,6 +16,8 @@ declare var google;
 })
 
 export class HomePage implements OnInit {
+  private blocos: Observable<Bloco[]>;
+
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   address:string;
@@ -24,25 +28,28 @@ export class HomePage implements OnInit {
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
     private navCtrl: NavController,
-    private authService: AuthenticateService
+    private authService: AuthenticateService,
+    private blocosService: BlocosService
   ) {}
 
   ngOnInit(){
+    this.blocos = this.blocosService.getBlocos();
     
     if(this.authService.userDetails()){
       this.userEmail = this.authService.userDetails().email;
     }else{
       this.navCtrl.navigateBack('');
     }
-    this.loadMap();
+    this.loadMap(this.blocos);
+
   }
 
-  loadMap() {
+  loadMap(blocos) {
     this.geolocation.getCurrentPosition().then((resp) => {
       let latLng = new google.maps.LatLng(-25.051196, -50.132609);
       let mapOptions = {
         center: latLng,
-        zoom: 15,
+        zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
  
@@ -54,7 +61,20 @@ export class HomePage implements OnInit {
         console.log('accuracy',this.map);
         this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
       });
- 
+
+      // for (let i = 0; i < blocos.length; i++) {
+      //   console.log('blocos[i]');
+      // }
+
+      var myLatLng = {lat: -25.051196, lng: -50.132609};
+
+      
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: this.map,
+        title: 'Nome do bloco'
+      });
+
     }).catch((error) => {
       console.log('Error getting location', error);
     });
