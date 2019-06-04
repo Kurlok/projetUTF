@@ -15,7 +15,7 @@ declare var google;
 })
 
 export class HomePage implements OnInit {
-  private blocos: Observable<Bloco[]>;
+  private blocos: Bloco[];
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -30,7 +30,8 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit(){
-    this.blocos = this.blocosService.getBlocos();
+
+   // this.blocos = this.blocosService.getBlocos();
     
     this.loadMap();
 
@@ -55,23 +56,37 @@ export class HomePage implements OnInit {
         this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
       });
 
-      // for (let i = 0; i < blocos.length; i++) {
-      //   console.log('blocos[i]');
-      // }
+      // var myLatLng = {lat: -25.051196, lng: -50.132609};
+      // var myLatLng2 = {lat: -25.051300, lng: -50.132700};
 
-      var myLatLng = {lat: -25.051196, lng: -50.132609};
+      // var marker = new google.maps.Marker({
+      //   position: myLatLng,
+      //   map: this.map,
+      //   title: 'lalalala'
+      // });  
 
+      // var marker = new google.maps.Marker({
+      //   position: myLatLng2,
+      //   map: this.map,
+      //   title: 'lalalala2'
+      // });  
 
-      // this.blocos.subscribe(items => {           
-      //       console.log('this.nomeBloco é', items[2].nome.toString());
-      //       var marker = new google.maps.Marker({
-      //         position: myLatLng,
-      //         map: this.map,
-      //         title: items[2].nome.toString()
-      //       });      
-      //   }
-      // );
-     
+  //     this.blocosService.getBlocos()
+  //     .subscribe(items => { 
+  //       this.blocos = items;   
+  //       this.blocos.map((item)=>{
+  //         console.log('this.nomeBloco é', item.nome.toString());
+  //         new google.maps.LatLng(item.latitude.toPrecision, item.longitude.toPrecision);
+  //         new google.maps.Marker({
+  //           position: latLng,
+  //           map: this.map,
+  //           title: item.nome.toString()
+  //         });    
+  //       })
+          
+  //   }
+  // );
+  
 
     }).catch((error) => {
       console.log('Error getting location', error);
