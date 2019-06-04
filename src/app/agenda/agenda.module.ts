@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { AgendaPage } from './agenda.page';
 
+import { NgCalendarModule  } from 'ionic2-calendar';
+
 const routes: Routes = [
   {
     path: '',
@@ -16,11 +18,13 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    NgCalendarModule,
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
+
   declarations: [AgendaPage]
 })
 export class AgendaPageModule {}
