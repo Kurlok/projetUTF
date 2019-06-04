@@ -69,15 +69,15 @@ export class HomePage implements OnInit {
       var myLatLng = {lat: -25.051196, lng: -50.132609};
 
 
-      // this.blocos.subscribe(items => {           
-      //       console.log('this.nomeBloco é', items[2].nome.toString());
-      //       var marker = new google.maps.Marker({
-      //         position: myLatLng,
-      //         map: this.map,
-      //         title: items[2].nome.toString()
-      //       });      
-      //   }
-      // );
+      this.blocos.subscribe(items => {           
+            console.log('this.nomeBloco é', items[2].nome.toString());
+            var marker = new google.maps.Marker({
+              position: myLatLng,
+              map: this.map,
+              title: items[2].nome.toString()
+            });      
+        }
+      );
      
 
     }).catch((error) => {
