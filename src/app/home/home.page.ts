@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { NavController, ModalController } from '@ionic/angular';
-import { AuthenticateService } from '../services/authentication.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { BlocosService, Bloco } from 'src/app/services/blocos.service';
@@ -27,18 +26,12 @@ export class HomePage implements OnInit {
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
     private navCtrl: NavController,
-    private authService: AuthenticateService,
     private blocosService: BlocosService
   ) {}
 
   ngOnInit(){
     this.blocos = this.blocosService.getBlocos();
     
-    if(this.authService.userDetails()){
-      this.userEmail = this.authService.userDetails().email;
-    }else{
-      this.navCtrl.navigateBack('');
-    }
     this.loadMap();
 
   }
@@ -111,17 +104,6 @@ export class HomePage implements OnInit {
         this.address = "Address Not Available!";
       });
  
-  }
- 
-  logout(){
-    this.authService.logoutUser()
-    .then(res => {
-      console.log(res);
-      this.navCtrl.navigateBack('');
-    })
-    .catch(error => {
-      console.log(error);
-    })
   }
 }
 
