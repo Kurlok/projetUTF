@@ -5,7 +5,7 @@ const routes: Routes = [
   //{ path: '', redirectTo: 'home', pathMatch: 'full' },
   //  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
 
-  { path: '', loadChildren: './login/login.module#LoginPageModule' },
+  { path: '', loadChildren: './home/home.module#HomePageModule' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
   { path: 'blocos', loadChildren: './blocos/blocos.module#BlocosPageModule' },
   { path: 'pesquisa', loadChildren: './pesquisa/pesquisa.module#PesquisaPageModule' },

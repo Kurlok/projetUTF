@@ -12,32 +12,20 @@ import { BlocosService, Bloco } from 'src/app/services/blocos.service';
 })
 export class BlocosPage implements OnInit {
 
-  private blocos: Observable<Bloco[]>;
+  private blocos: Bloco[];
 
-  constructor(private blocosService: BlocosService) { }
+  constructor(private blocosService: BlocosService) {
+    this.blocosService.getBlocos()
+    .subscribe(items=>{
+      console.log('teste');
+      this.blocos = items;
+    });
+    
+   }
 
   ngOnInit() {
-    this.blocos = this.blocosService.getBlocos();
-    
+ 
   }
 
 }
 
-export class Menu {
-
-  constructor(private menu: MenuController) { }
-  
-    openFirst() {
-      this.menu.enable(true, 'first');
-      this.menu.open('first');
-    }
-  
-    openEnd() {
-      this.menu.open('end');
-    }
-  
-    openCustom() {
-      this.menu.enable(true, 'custom');
-      this.menu.open('custom');
-    }
-  }

@@ -16,7 +16,7 @@ declare var google;
 })
 
 export class HomePage implements OnInit {
-  private blocos: Observable<Bloco[]>;
+  private blocos: Bloco[];
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -31,14 +31,28 @@ export class HomePage implements OnInit {
     private blocosService: BlocosService
   ) {}
 
-  ngOnInit(){
-    this.blocos = this.blocosService.getBlocos();
+  ngOnInit(){ this.blocosService.getBlocos()
+    .subscribe(items => { 
+      this.blocos = items;          
+      this.blocos.map((item)=>{
+        console.log('this.nomeBloco é', item.nome.toString());
+        let latLng = new google.maps.LatLng(item.latitude, item.longitude);
+
+        var marker = new google.maps.Marker({
+          position: latLng,
+          map: this.map,
+          title: item.nome.toString()
+        });    
+      })
+        
+  }
+);
     
-    if(this.authService.userDetails()){
-      this.userEmail = this.authService.userDetails().email;
-    }else{
-      this.navCtrl.navigateBack('');
-    }
+    // if(this.authService.userDetails()){
+    //   this.userEmail = this.authService.userDetails().email;
+    // }else{
+    //   this.navCtrl.navigateBack('');
+    // }
     this.loadMap();
 
   }
@@ -69,15 +83,6 @@ export class HomePage implements OnInit {
       var myLatLng = {lat: -25.051196, lng: -50.132609};
 
 
-      // this.blocos.subscribe(items => {           
-      //       console.log('this.nomeBloco é', items[2].nome.toString());
-      //       var marker = new google.maps.Marker({
-      //         position: myLatLng,
-      //         map: this.map,
-      //         title: items[2].nome.toString()
-      //       });      
-      //   }
-      // );
      
 
     }).catch((error) => {
@@ -125,22 +130,3 @@ export class HomePage implements OnInit {
   }
 }
 
-export class Menu {
-
-constructor(private menu: MenuController) { }
-
-  openFirst() {
-    this.menu.enable(true, 'first');
-    this.menu.open('first');
-  }
-
-  openEnd() {
-    this.menu.open('end');
-  }
-
-  openCustom() {
-    this.menu.enable(true, 'custom');
-    this.menu.open('custom');
-  }
-
-}
