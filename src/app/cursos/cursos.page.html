@@ -1,33 +1,59 @@
-<ion-header >
-  <ion-toolbar color="primary">
-    <ion-title>
-      MAPAS UTFPR
-    </ion-title>
-    <ion-buttons slot="start" class="sc-ion-buttons-ios-h sc-ion-buttons-ios-s ios buttons-first-slot hydrated">
-        <ion-menu-button class="ios button ion-activatable ion-focusable hydrated"></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-    <ion-menu side="start" menuId="custom" class="meu-menu">
-        <ion-content>
-          <ion-list>
-            <ion-item  routerLink="/home" routerDirection="root">Início</ion-item>
-            <ion-item  routerLink="/blocos" routerDirection="root">Blocos</ion-item>
-            <ion-item  routerLink="/blocosCadastro" routerDirection="root">Blocos Cadastro</ion-item>
-            <ion-item  routerLink="/cursos" routerDirection="root">Cursos</ion-item>
-            <ion-item  routerLink="/pesquisa" routerDirection="root">Pesquisa Avançada</ion-item>
-            <ion-item  routerLink="/agenda" routerDirection="root">Agenda</ion-item>
-            <ion-item  routerLink="/sobre" routerDirection="root">Sobre o Campus</ion-item>
-          </ion-list>
-        </ion-content>
-      </ion-menu>
-    <ion-router-outlet main></ion-router-outlet>
-
-
-
-
-
-<ion-content>
-
-</ion-content>
+<ion-content padding>   
+       
+        <ion-card *ngFor="let item of blocos">
+          <span *ngIf="!item.isEdit; else elseBlock">
+            <ion-card-header>
+              <ion-card-title>{{item.nome}}. Descrição: {{item.descricao}} .</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+       
+              <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
+                <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+       
+              </ion-button>
+              <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
+                <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+       
+              </ion-button>
+            </ion-card-content>
+          </span>
+          <ng-template #elseBlock>
+            <ion-card-header>
+              <ion-card-title>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>
+                      Edit
+                    </ion-col>
+                    <ion-col>
+                      <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
+                        Cancel
+                      </ion-button>
+                    </ion-col>
+                    <ion-col>
+                      <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
+                        Update
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-item>
+                <ion-label><strong>Name</strong></ion-label>
+                <ion-input type="text" [(ngModel)]="item.EditName"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label><strong>Age</strong></ion-label>
+                <ion-input type="text" [(ngModel)]="item.EditAge"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label><strong>Address</strong></ion-label>
+                <ion-input type="text" [(ngModel)]="item.EditAddress"></ion-input>
+              </ion-item>
+            </ion-card-content>
+          </ng-template>
+        </ion-card>
+       
+      </ion-content>

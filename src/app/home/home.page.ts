@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { NavController, ModalController } from '@ionic/angular';
-import { AuthenticateService } from '../services/authentication.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { BlocosService, Bloco } from 'src/app/services/blocos.service';
@@ -16,7 +15,7 @@ declare var google;
 })
 
 export class HomePage implements OnInit {
-  private blocos: Observable<Bloco[]>;
+  private blocos: any;
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -27,20 +26,33 @@ export class HomePage implements OnInit {
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
     private navCtrl: NavController,
-    private authService: AuthenticateService,
     private blocosService: BlocosService
   ) {}
 
   ngOnInit(){
-    this.blocos = this.blocosService.getBlocos();
-    
-    if(this.authService.userDetails()){
-      this.userEmail = this.authService.userDetails().email;
-    }else{
-      this.navCtrl.navigateBack('');
-    }
-    this.loadMap();
 
+    this.blocosService.readBlocos().subscribe(data => {
+      this.blocos = data.map(e => {
+       return {
+         id: e.payload.doc.id,
+         nome: e.payload.doc.data()['nome'],
+         descricao: e.payload.doc.data()['descricao'],
+         latitude: e.payload.doc.data()['latitude'],
+         longitude: e.payload.doc.data()['longitude'],
+         raio: e.payload.doc.data()['raio']
+
+       };
+     })
+    //  var latLng = new google.maps.LatLng(this.blocos.latitude.toPrecision, this.blocos.longitude.toPrecision);
+    //  new google.maps.Marker({
+    //    position: latLng,
+    //    map: this.map,
+    //    title: this.blocos.nome.toString()
+    //   });
+     console.log(this.blocos);
+     console.log(this.blocos[0].nome);
+    });  
+    this.loadMap();
   }
 
   loadMap() {
@@ -62,23 +74,37 @@ export class HomePage implements OnInit {
         this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
       });
 
-      // for (let i = 0; i < blocos.length; i++) {
-      //   console.log('blocos[i]');
-      // }
+      // var myLatLng = {lat: -25.051196, lng: -50.132609};
+      // var myLatLng2 = {lat: -25.051300, lng: -50.132700};
 
-      var myLatLng = {lat: -25.051196, lng: -50.132609};
+      // var marker = new google.maps.Marker({
+      //   position: myLatLng,
+      //   map: this.map,
+      //   title: 'lalalala'
+      // });  
 
+      // var marker = new google.maps.Marker({
+      //   position: myLatLng2,
+      //   map: this.map,
+      //   title: 'lalalala2'
+      // });  
 
-      // this.blocos.subscribe(items => {           
-      //       console.log('this.nomeBloco é', items[2].nome.toString());
-      //       var marker = new google.maps.Marker({
-      //         position: myLatLng,
-      //         map: this.map,
-      //         title: items[2].nome.toString()
-      //       });      
-      //   }
-      // );
-     
+  //     this.blocosService.getBlocos()
+  //     .subscribe(items => { 
+  //       this.blocos = items;   
+  //       this.blocos.map((item)=>{
+  //         console.log('this.nomeBloco é', item.nome.toString());
+  //         new google.maps.LatLng(item.latitude.toPrecision, item.longitude.toPrecision);
+  //         new google.maps.Marker({
+  //           position: latLng,
+  //           map: this.map,
+  //           title: item.nome.toString()
+  //         });    
+  //       })
+          
+  //   }
+  // );
+  
 
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -111,17 +137,6 @@ export class HomePage implements OnInit {
         this.address = "Address Not Available!";
       });
  
-  }
- 
-  logout(){
-    this.authService.logoutUser()
-    .then(res => {
-      console.log(res);
-      this.navCtrl.navigateBack('');
-    })
-    .catch(error => {
-      console.log(error);
-    })
   }
 }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { BlocosService } from 'src/app/services/blocos.service';
 
 @Component({
   selector: 'app-cursos',
@@ -8,28 +9,13 @@ import { MenuController } from '@ionic/angular';
 })
 export class CursosPage implements OnInit {
 
-  constructor() { }
-
+ 
+  constructor(private blocoService: BlocosService) { }
+ 
   ngOnInit() {
+
   }
+ 
 
 }
 
-export class Menu {
-
-  constructor(private menu: MenuController) { }
-  
-    openFirst() {
-      this.menu.enable(true, 'first');
-      this.menu.open('first');
-    }
-  
-    openEnd() {
-      this.menu.open('end');
-    }
-  
-    openCustom() {
-      this.menu.enable(true, 'custom');
-      this.menu.open('custom');
-    }
-  }

@@ -1,3 +1,26 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+    <ion-header >
+        <ion-toolbar color="primary">
+          <ion-title>
+            MAPAS UTFPR
+          </ion-title>
+          <ion-buttons slot="start" class="sc-ion-buttons-ios-h sc-ion-buttons-ios-s ios buttons-first-slot hydrated">
+              <ion-menu-button class="ios button ion-activatable ion-focusable hydrated"></ion-menu-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+          <ion-menu side="start" menuId="custom" class="meu-menu">
+                <ion-list>
+                  <ion-item  routerLink="/home" >Início</ion-item>
+                  <ion-item  routerLink="/blocos" >Blocos</ion-item>
+                  <ion-item  routerLink="/blocosCadastro" >Blocos Cadastro</ion-item>
+                  <ion-item  routerLink="/cursos" > Cursos</ion-item>
+                  <ion-item  routerLink="/pesquisa" >Pesquisa Avançada</ion-item>
+                  <ion-item  routerLink="/agenda" >Agenda</ion-item>
+                  <ion-item  routerLink="/sobre" >Sobre o Campus</ion-item>
+                </ion-list>
+            </ion-menu>
+          <ion-router-outlet main></ion-router-outlet>
+      </ion-content>
 </ion-app>
