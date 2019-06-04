@@ -34,7 +34,14 @@ export class BlocosService {
       })
     );
   }
+
+
  
+  readBlocos() {
+    return this.afs.collection('blocos').snapshotChanges();
+  }
+ 
+
   getBlocos(): Observable<Bloco[]> {
     return this.blocos;
   }
@@ -54,7 +61,7 @@ export class BlocosService {
   }
  
   updateBloco(bloco: Bloco): Promise<void> {
-    return this.blocoCollection.doc(bloco.id).update({ name: bloco.nome, descricao: bloco.descricao, latitude: bloco.latitude, longitude: bloco.longitude, raio: bloco.raio });
+    return this.blocoCollection.doc(bloco.id).update({ nome: bloco.nome, descricao: bloco.descricao, latitude: bloco.latitude, longitude: bloco.longitude, raio: bloco.raio });
   }
  
   deleteBloco(id: string): Promise<void> {

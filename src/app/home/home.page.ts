@@ -15,7 +15,7 @@ declare var google;
 })
 
 export class HomePage implements OnInit {
-  private blocos: Bloco[];
+  private blocos: any;
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -31,10 +31,28 @@ export class HomePage implements OnInit {
 
   ngOnInit(){
 
-   // this.blocos = this.blocosService.getBlocos();
-    
-    this.loadMap();
+    this.blocosService.readBlocos().subscribe(data => {
+      this.blocos = data.map(e => {
+       return {
+         id: e.payload.doc.id,
+         nome: e.payload.doc.data()['nome'],
+         descricao: e.payload.doc.data()['descricao'],
+         latitude: e.payload.doc.data()['latitude'],
+         longitude: e.payload.doc.data()['longitude'],
+         raio: e.payload.doc.data()['raio']
 
+       };
+     })
+    //  var latLng = new google.maps.LatLng(this.blocos.latitude.toPrecision, this.blocos.longitude.toPrecision);
+    //  new google.maps.Marker({
+    //    position: latLng,
+    //    map: this.map,
+    //    title: this.blocos.nome.toString()
+    //   });
+     console.log(this.blocos);
+     console.log(this.blocos[0].nome);
+    });  
+    this.loadMap();
   }
 
   loadMap() {

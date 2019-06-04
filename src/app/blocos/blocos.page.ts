@@ -12,32 +12,26 @@ import { BlocosService, Bloco } from 'src/app/services/blocos.service';
 })
 export class BlocosPage implements OnInit {
 
-  private blocos: Observable<Bloco[]>;
+  private blocos: any;
 
   constructor(private blocosService: BlocosService) { }
 
   ngOnInit() {
-    this.blocos = this.blocosService.getBlocos();
+    this.blocosService.readBlocos().subscribe(data => {
+      this.blocos = data.map(e => {
+       return {
+         id: e.payload.doc.id,
+         nome: e.payload.doc.data()['nome'],
+         descricao: e.payload.doc.data()['descricao'],
+         latitude: e.payload.doc.data()['latitude'],
+         longitude: e.payload.doc.data()['longitude'],
+         raio: e.payload.doc.data()['raio']
+       };
+     })
+     console.log(this.blocos);
     
-  }
+    });
 
 }
+}
 
-export class Menu {
-
-  constructor(private menu: MenuController) { }
-  
-    openFirst() {
-      this.menu.enable(true, 'first');
-      this.menu.open('first');
-    }
-  
-    openEnd() {
-      this.menu.open('end');
-    }
-  
-    openCustom() {
-      this.menu.enable(true, 'custom');
-      this.menu.open('custom');
-    }
-  }

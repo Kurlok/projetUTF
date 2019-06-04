@@ -4,7 +4,7 @@
       BLOCOS
     </ion-toolbar>
     <ion-grid>
-      <ion-row *ngFor="let bloco of (blocos | async)">
+      <ion-row *ngFor="let bloco of blocos">
         <ion-col>
           <ion-card button [routerLink]="['/bloco', bloco.id]" routerDirection="forward">
             <ion-card-header>
