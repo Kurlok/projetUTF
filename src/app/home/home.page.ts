@@ -31,27 +31,7 @@ export class HomePage implements OnInit {
 
   ngOnInit(){
 
-    this.blocosService.readBlocos().subscribe(data => {
-      this.blocos = data.map(e => {
-       return {
-         id: e.payload.doc.id,
-         nome: e.payload.doc.data()['nome'],
-         descricao: e.payload.doc.data()['descricao'],
-         latitude: e.payload.doc.data()['latitude'],
-         longitude: e.payload.doc.data()['longitude'],
-         raio: e.payload.doc.data()['raio']
 
-       };
-     })
-    //  var latLng = new google.maps.LatLng(this.blocos.latitude.toPrecision, this.blocos.longitude.toPrecision);
-    //  new google.maps.Marker({
-    //    position: latLng,
-    //    map: this.map,
-    //    title: this.blocos.nome.toString()
-    //   });
-     console.log(this.blocos);
-     console.log(this.blocos[0].nome);
-    });  
     this.loadMap();
   }
 
@@ -74,37 +54,33 @@ export class HomePage implements OnInit {
         this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
       });
 
-      // var myLatLng = {lat: -25.051196, lng: -50.132609};
-      // var myLatLng2 = {lat: -25.051300, lng: -50.132700};
+  var latLong;
 
-      // var marker = new google.maps.Marker({
-      //   position: myLatLng,
-      //   map: this.map,
-      //   title: 'lalalala'
-      // });  
+  this.blocosService.readBlocos().subscribe(data => {
+    this.blocos = data.map(e => {
+     return {
+       id: e.payload.doc.id,
+       nome: e.payload.doc.data()['nome'],
+       descricao: e.payload.doc.data()['descricao'],
+       latitude: e.payload.doc.data()['latitude'],
+       longitude: e.payload.doc.data()['longitude'],
+       raio: e.payload.doc.data()['raio']
+     };
+   })
+ for (var i = 0; i < this.blocos.length; i++) {
+  latLong = new google.maps.LatLng(this.blocos[i].latitude, this.blocos[i].longitude); 
+  var marker = new google.maps.Marker({
+   position: latLong,
+   map: this.map,
+   title: 'this.blocos.nome.toString()',i
+  });
+  console.log(this.blocos);
+  console.log(this.blocos[i].nome);
+}
 
-      // var marker = new google.maps.Marker({
-      //   position: myLatLng2,
-      //   map: this.map,
-      //   title: 'lalalala2'
-      // });  
 
-  //     this.blocosService.getBlocos()
-  //     .subscribe(items => { 
-  //       this.blocos = items;   
-  //       this.blocos.map((item)=>{
-  //         console.log('this.nomeBloco é', item.nome.toString());
-  //         new google.maps.LatLng(item.latitude.toPrecision, item.longitude.toPrecision);
-  //         new google.maps.Marker({
-  //           position: latLng,
-  //           map: this.map,
-  //           title: item.nome.toString()
-  //         });    
-  //       })
-          
-  //   }
-  // );
-  
+
+  });  
 
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -117,6 +93,8 @@ export class HomePage implements OnInit {
       useLocale: true,
       maxResults: 5
     };
+
+
 
     this.nativeGeocoder.reverseGeocode(lattitude, longitude, options)
       .then((result: NativeGeocoderReverseResult[]) => {
