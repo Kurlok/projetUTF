@@ -86,15 +86,25 @@ export class HomePage implements OnInit {
     //   console.log('Erro buscando a sua localização', error);
     // });
       
+    var marker = new google.maps.Marker(null);
+
     //Observa a posição atual do dispositivo e cria marcador
     this.geolocation.watchPosition().subscribe((position) => {
       let latLng = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-      let marker = new google.maps.Marker({
+      marker.setOptions({
         map: this.map,
-      //  icon:  'assets/imgs/pins/redpin.png',
         position: latLng,
         enableHighAccuracy:true
-       });
+      });
+      // marker.setMap(null);
+      // marker = new google.maps.Marker({
+      //   map: this.map,
+      // //  icon:  'assets/imgs/pins/redpin.png',
+      //   position: latLng,
+      //   enableHighAccuracy:true
+      //  });
+      //  marker.setMap(this.map);
+
       let message = "Você!!!";
   }, (err) => {console.log(err);} );
 
