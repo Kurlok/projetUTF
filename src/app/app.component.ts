@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { PopoverController } from '@ionic/angular';
+import { MenuPopoverComponent } from './menu-popover/menu-popover.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,8 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    public popoverController: PopoverController
   ) {
     this.initializeApp();
   }
@@ -22,6 +25,14 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+       component: MenuPopoverComponent,
+       event: ev,
+       translucent: true
+    });
+    return await popover.present();
   }
 }
 export class Menu {
@@ -43,4 +54,6 @@ export class Menu {
     }
   
   }
+
+
   

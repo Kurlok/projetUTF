@@ -17,12 +17,13 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
 import * as firebase from 'firebase';
+import { MenuPopoverComponent } from './menu-popover/menu-popover.component';
 
 firebase.initializeApp(environment.firebase);
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, MenuPopoverComponent],
+  entryComponents: [MenuPopoverComponent],
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
