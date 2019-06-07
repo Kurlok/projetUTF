@@ -5,6 +5,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { BlocosService, Bloco } from 'src/app/services/blocos.service';
 import { Observable, Subject } from 'rxjs';
+import { Platform } from '@ionic/angular';
 
 declare var google;
 
@@ -16,6 +17,8 @@ declare var google;
 
 export class HomePage implements OnInit {
   private blocos: any;
+  private alturaJanela;
+  private larguraJanela;
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -24,9 +27,13 @@ export class HomePage implements OnInit {
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
     private navCtrl: NavController,
-    private blocosService: BlocosService
+    private blocosService: BlocosService,
+    public plt: Platform
   ) { 
-
+    plt.ready().then((readySource) => {
+      this.larguraJanela = plt.width();
+      this.alturaJanela = plt.height() - 44;
+    });
   }
 
   ngOnInit() {
@@ -135,4 +142,6 @@ export class HomePage implements OnInit {
         this.address = "Address Not Available!";
       });
   }
+
+  
 }
