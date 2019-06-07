@@ -32,12 +32,13 @@ export class HomePage implements OnInit {
   ) { 
     plt.ready().then((readySource) => {
       this.larguraJanela = plt.width();
-      this.alturaJanela = plt.height() - 44;
+      this.alturaJanela = plt.height() - 44; //44 é a altura do menu
     });
   }
 
   ngOnInit() {
-    this.loadMap();
+    
+   // this.loadMap(); //Função para carregar o mapa da API do google.
   }
   
   loadMap() {
