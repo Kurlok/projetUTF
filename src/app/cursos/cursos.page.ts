@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ModalController } from '@ionic/angular';
 import { BlocosService } from 'src/app/services/blocos.service';
+import { CursosModalComponent } from '../cursos-modal/cursos-modal.component';
 
 @Component({
   selector: 'app-cursos',
@@ -10,12 +11,17 @@ import { BlocosService } from 'src/app/services/blocos.service';
 export class CursosPage implements OnInit {
 
  
-  constructor(private blocoService: BlocosService) { }
+  constructor(private modalController: ModalController) { }
  
   ngOnInit() {
 
   }
  
-
+  async showModal(){
+    const modal = await this.modalController.create({
+      component: CursosModalComponent
+    })
+    await modal.present()
+  }
 }
 
