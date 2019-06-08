@@ -1,4 +1,21 @@
-<ion-content >   
-       
-      
-      </ion-content>
+<ion-content>
+      <ion-searchbar (ionInput)="filtrarLista($event)"></ion-searchbar>
+      <ion-grid align-items-center>
+            <ion-row align-items-center>
+                  <ion-col align-items-center>
+                        Local
+                  </ion-col>
+                  <ion-col>
+                        Bloco
+                  </ion-col>
+            </ion-row>
+            <ion-row align-items-center *ngFor="let sala of salas">
+                  <ion-col>
+                       {{sala.nome}}.
+                  </ion-col>
+                  <ion-col>
+                       {{sala.piso}}
+                  </ion-col>
+            </ion-row>
+      </ion-grid>
+</ion-content>
