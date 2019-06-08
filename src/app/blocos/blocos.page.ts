@@ -25,7 +25,6 @@ export class BlocosPage implements OnInit {
          descricao: e.payload.doc.data()['descricao'],
          latitude: e.payload.doc.data()['latitude'],
          longitude: e.payload.doc.data()['longitude'],
-         raio: e.payload.doc.data()['raio']
        };
      })
      console.log(this.blocos);

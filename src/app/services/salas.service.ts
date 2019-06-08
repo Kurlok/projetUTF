@@ -21,20 +21,21 @@ export class SalasService {
   private salasCollection: AngularFirestoreCollection<Sala>;
  
   constructor(private afs: AngularFirestore) {
-    this.salasCollection = this.afs.collection<Sala>('campus/pontagrossa/sede/monteirolobato/locais/blococ/salas');
-    this.salas = this.salasCollection.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
-      })
-    );
+    // this.salasCollection = this.afs.collection<Sala>('campus/pontagrossa/sede/monteirolobato/locais/blococ/salas');
+    // this.salas = this.salasCollection.snapshotChanges().pipe(
+    //   map(actions => {
+    //     return actions.map(a => {
+    //       const data = a.payload.doc.data();
+    //       const id = a.payload.doc.id;
+    //       return { id, ...data };
+    //     });
+    //   })
+    // );
   }
 
   readSalas() {
-    return this.afs.collection('campus/pontagrossa/sede/monteirolobato/locais/blococ/salas').snapshotChanges();
+
+    return this.afs.collection('campus/pontagrossa/locais/blococ/salas').snapshotChanges();
   }
 
 }

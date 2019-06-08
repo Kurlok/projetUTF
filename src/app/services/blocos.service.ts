@@ -19,32 +19,32 @@ export interface Bloco {
 })
 
 export class BlocosService {
-  private blocos: Observable<Bloco[]>;
+  private blocos: Observable<any>;
   private blocoCollection: AngularFirestoreCollection<Bloco>;
  
   constructor(private afs: AngularFirestore) {
-    this.blocoCollection = this.afs.collection<Bloco>('campus/pontagrossa/sede/monteirolobato/locais');
-    this.blocos = this.blocoCollection.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
-      })
-    );
+    // this.blocoCollection = this.afs.collection<any>('campus/pontagrossa/sede/monteirolobato/locais');
+    // this.blocos = this.blocoCollection.snapshotChanges().pipe(
+    //   map(actions => {
+    //     return actions.map(a => {
+    //       const data = a.payload.doc.data();
+    //       const id = a.payload.doc.id;
+    //       return { id, ...data };
+    //     });
+    //   })
+    // );
   }
 
 
  
   readBlocos() {
-    return this.afs.collection('campus/pontagrossa/sede/monteirolobato/locais').snapshotChanges();
+    return this.afs.collection('campus/pontagrossa/locais').snapshotChanges();
   }
  
 
-  getBlocos(): Observable<Bloco[]> {
-    return this.blocos;
-  }
+  // getBlocos(): Observable<any> {
+  //   return this.blocos;
+  // }
  
   getBloco(id: string): Observable<Bloco> {
     return this.blocoCollection.doc<Bloco>(id).valueChanges().pipe(
