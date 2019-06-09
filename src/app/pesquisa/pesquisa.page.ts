@@ -64,6 +64,12 @@ filtrarLista(evt){
       if (salaAtual.nome.toLowerCase().indexOf(termoProcurado.toLowerCase()) > -1) {
         return true;
       }
+      if (salaAtual.piso && termoProcurado) {
+        if (salaAtual.piso.toLowerCase().indexOf(termoProcurado.toLowerCase()) > -1) {
+          return true;
+        }
+        return false
+      }
       return false;
     }
   });
