@@ -7,9 +7,12 @@
           <ion-buttons slot="start" class="sc-ion-buttons-ios-h sc-ion-buttons-ios-s ios buttons-first-slot hydrated">
               <ion-menu-button class="ios button ion-activatable ion-focusable hydrated"></ion-menu-button>
           </ion-buttons>
-          <ion-button slot="end" (click)="presentPopover($event)">
-              <ion-icon slot="icon-only" name="more" ></ion-icon>
-          </ion-button>
+          <ion-buttons slot="end">
+            <ion-button slot="end" (click)="presentPopover($event)">
+              <ion-icon slot="end" name="more" ></ion-icon>
+            </ion-button>
+          </ion-buttons>
+         
         </ion-toolbar>
       </ion-header>
       <ion-content>          
