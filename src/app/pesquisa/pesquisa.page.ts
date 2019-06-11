@@ -20,7 +20,7 @@ export class PesquisaPage implements OnInit {
     ) { }
   
   ngOnInit() {
-    this.blocosService.readBlocos().subscribe(data => {
+    this.blocosService.readBlocos('pontagrossa').subscribe(data => { //mudar pontagrossa para uma variável
       this.blocos = data.map(e => {
        return {
          id: e.payload.doc.id,

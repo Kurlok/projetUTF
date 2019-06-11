@@ -37,8 +37,9 @@ export class BlocosService {
 
 
  
-  readBlocos() {
-    return this.afs.collection('campus/pontagrossa/locais').snapshotChanges();
+  readBlocos(campus: string) {
+    campus='pontagrossa';
+    return this.afs.collection('campus/'+campus+'/locais').snapshotChanges();
   }
  
 

@@ -5,7 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class CampusService {
-
+  public campusSelecionado: string;
   constructor(private afs: AngularFirestore) { }
 
 

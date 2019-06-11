@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { Observable } from 'rxjs';
-import { BlocosService, Bloco } from 'src/app/services/blocos.service';
+import { BlocosService } from 'src/app/services/blocos.service';
+import { CampusService } from 'src/app/services/campus.service';
 
 
 
@@ -14,10 +15,10 @@ export class BlocosPage implements OnInit {
 
   private blocos: any;
 
-  constructor(private blocosService: BlocosService) { }
+  constructor(private blocosService: BlocosService, campusService: CampusService) { }
 
   ngOnInit() {
-    this.blocosService.readBlocos().subscribe(data => {
+    this.blocosService.readBlocos('pontagrossa').subscribe(data => { //Arrumar o pontagrossa para uma variável
       this.blocos = data.map(e => {
        return {
          id: e.payload.doc.id,

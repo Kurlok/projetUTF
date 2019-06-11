@@ -18,6 +18,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
 import * as firebase from 'firebase';
 import { MenuPopoverComponent } from './menu-popover/menu-popover.component';
+import { CampusService } from './services/campus.service';
 
 firebase.initializeApp(environment.firebase);
 
@@ -36,6 +37,7 @@ firebase.initializeApp(environment.firebase);
     SplashScreen,
     Geolocation,
     NativeGeocoder,
+    CampusService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy,  },
     { provide: FirestoreSettingsToken, useValue: {} }
 
