@@ -5,6 +5,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { BlocosService, Bloco } from 'src/app/services/blocos.service';
 import { Observable, Subject } from 'rxjs';
+import { Platform } from '@ionic/angular';
 
 declare var google;
 
@@ -16,6 +17,8 @@ declare var google;
 
 export class HomePage implements OnInit {
   private blocos: any;
+  private alturaJanela;
+  private larguraJanela;
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -24,15 +27,20 @@ export class HomePage implements OnInit {
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
     private navCtrl: NavController,
-    private blocosService: BlocosService
-  ) {
-
+    private blocosService: BlocosService,
+    public plt: Platform
+  ) { 
+    plt.ready().then((readySource) => {
+      this.larguraJanela = plt.width();
+      this.alturaJanela = plt.height() - 44; //44 é a altura do menu
+    });
   }
 
   ngOnInit() {
-    this.loadMap();
+    
+   // this.loadMap(); //Função para carregar o mapa da API do google.
   }
-
+  
   loadMap() {
 
     let watch = this.geolocation.watchPosition();
@@ -47,55 +55,54 @@ export class HomePage implements OnInit {
       fullscreenControl: false
     }
 
-    // this.getAddressFromCoords(-25.051196, -50.132609);
+   // this.getAddressFromCoords(-25.051196, -50.132609);
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-    //Coloca os marcadores dos blocos no mapa
-    var latLong;
-    this.blocosService.readBlocos('pontagrossa').subscribe(data => { //Arrumar o pontagrossa para uma variável
-      this.blocos = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          nome: e.payload.doc.data()['nome'],
-          descricao: e.payload.doc.data()['descricao'],
-          latitude: e.payload.doc.data()['latitude'],
-          longitude: e.payload.doc.data()['longitude'],
-          raio: e.payload.doc.data()['raio']
-        };
-      })
-      for (var i = 0; i < this.blocos.length; i++) {
-        latLong = new google.maps.LatLng(this.blocos[i].latitude, this.blocos[i].longitude);
-        var marker = new google.maps.Marker({
-          position: latLong,
-          map: this.map,
-          title: this.blocos[i].nome
-        });
-        console.log(this.blocos);
-      }
-    });
+      //Coloca os marcadores dos blocos no mapa
+      var latLong;
+      this.blocosService.readBlocos('pontagrossa').subscribe(data => { //atualizar o pontagrossa para o campusSelecionado
+        this.blocos = data.map(e => {
+          return {
+            id: e.payload.doc.id,
+            nome: e.payload.doc.data()['nome'],
+            descricao: e.payload.doc.data()['descricao'],
+            latitude: e.payload.doc.data()['latitude'],
+            longitude: e.payload.doc.data()['longitude'],
+            raio: e.payload.doc.data()['raio']
+          };
+        })
+        for (var i = 0; i < this.blocos.length; i++) {
+          latLong = new google.maps.LatLng(this.blocos[i].latitude, this.blocos[i].longitude);
+          var marker = new google.maps.Marker({
+            position: latLong,
+            map: this.map,
+            title: this.blocos[i].nome
+          });
+          console.log(this.blocos);
+        }
+      });
 
     //this.geolocation.getCurrentPosition().then((resp) => {
-    // let latLngAtualiza = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude)
-    // this.map.setCenter(latLngAtualiza);
-    // this.map.addListener('tilesloaded', () => {
-    //  console.log('accuracy', this.map);
-    //  this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
-    // });
+     // let latLngAtualiza = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude)
+     // this.map.setCenter(latLngAtualiza);
+     // this.map.addListener('tilesloaded', () => {
+      //  console.log('accuracy', this.map);
+      //  this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
+     // });
     // }).catch((error) => {
     //   console.log('Erro buscando a sua localização', error);
     // });
-
+      
     var marker = new google.maps.Marker(null);
 
     //Observa a posição atual do dispositivo e cria marcador
-    this.geolocation.watchPosition({timeout: 2500}).subscribe((position) => {
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      console.log(latLng);
+    this.geolocation.watchPosition().subscribe((position) => {
+      let latLng = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
       marker.setOptions({
         map: this.map,
         position: latLng,
-        enableHighAccuracy: true
+        enableHighAccuracy:true
       });
       // marker.setMap(null);
       // marker = new google.maps.Marker({
@@ -107,7 +114,7 @@ export class HomePage implements OnInit {
       //  marker.setMap(this.map);
 
       let message = "Você!!!";
-    }, (err) => { console.log(err); });
+  }, (err) => {console.log(err);} );
 
   }
 
@@ -136,4 +143,6 @@ export class HomePage implements OnInit {
         this.address = "Address Not Available!";
       });
   }
+
+  
 }
