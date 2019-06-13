@@ -6,6 +6,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } fr
 import { BlocosService, Bloco } from 'src/app/services/blocos.service';
 import { Observable, Subject } from 'rxjs';
 import { Platform } from '@ionic/angular';
+import { CampusService } from '../services/campus.service';
 
 declare var google;
 
@@ -28,7 +29,8 @@ export class HomePage implements OnInit {
     private nativeGeocoder: NativeGeocoder,
     private navCtrl: NavController,
     private blocosService: BlocosService,
-    public plt: Platform
+    public plt: Platform,
+    protected campusService: CampusService
   ) { 
     plt.ready().then((readySource) => {
       this.larguraJanela = plt.width();
@@ -37,7 +39,8 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    
+    //this.campusService.campusSelecionado = 'teste';
+    //console.log(this.campusService.campusSelecionado);
    // this.loadMap(); //Função para carregar o mapa da API do google.
   }
   

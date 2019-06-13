@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { CampusService } from 'src/app/services/campus.service';
+import { CampusService } from '../services/campus.service';
 
 @Component({
   selector: 'app-menu-popover',
@@ -12,7 +12,7 @@ export class MenuPopoverComponent implements OnInit {
 
   constructor(
     public popoverController: PopoverController,
-    private campusService: CampusService,
+    protected campusService: CampusService,
     ) { }
 
   ngOnInit() {

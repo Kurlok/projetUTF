@@ -1,7 +1,9 @@
 <ion-list>
-  <ion-item *ngFor="let campus of campus">
-    <ion-label>
+  <div *ngFor="let campus of campus">
+  <ion-item (click)="this.campusService.campusSelecionado = campus.nome;">
+    <ion-button>
       {{campus.nome}}
-    </ion-label>
+    </ion-button>
   </ion-item>
+</div>
 </ion-list>
