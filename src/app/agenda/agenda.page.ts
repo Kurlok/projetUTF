@@ -1,8 +1,9 @@
 import { Component, OnInit, LOCALE_ID, Inject, ViewChild } from '@angular/core';
 import { MenuController, AlertController } from '@ionic/angular';
-import { formatDate } from '@angular/common';
+import { formatDate, registerLocaleData } from '@angular/common';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
-
+import localeBr from '@angular/common/locales/pt-PT';
+registerLocaleData(localeBr)
 
 @Component({
   selector: 'app-agenda',

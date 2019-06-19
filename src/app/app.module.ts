@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -19,6 +19,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import * as firebase from 'firebase';
 import { MenuPopoverComponent } from './menu-popover/menu-popover.component';
 import { CampusService } from './services/campus.service';
+import { registerLocaleData } from '@angular/common';
+
 
 firebase.initializeApp(environment.firebase);
 
@@ -39,7 +41,8 @@ firebase.initializeApp(environment.firebase);
     NativeGeocoder,
     CampusService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy,  },
-    { provide: FirestoreSettingsToken, useValue: {} }
+    { provide: FirestoreSettingsToken, useValue: {} },
+    { provide: LOCALE_ID, useValue: 'pt-PT' }
 
   ],
   bootstrap: [AppComponent]
