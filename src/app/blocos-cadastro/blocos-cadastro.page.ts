@@ -32,7 +32,7 @@ export class BlocosCadastroPage implements OnInit {
     if (id) {
       this.blocoService.getBloco(id).subscribe(bloco => {
         this.bloco = bloco;
-        console.log ("[BLOCOS CADASTRO] this.bloco:" + this.bloco);
+    //    console.log ("[BLOCOS CADASTRO] this.bloco:" + this.bloco);
       });
     }
     

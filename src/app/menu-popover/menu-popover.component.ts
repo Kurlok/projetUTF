@@ -31,8 +31,8 @@ export class MenuPopoverComponent implements OnInit {
          iframe: e.payload.doc.data()['iframe']
        };
      })
-     console.log("[POPUP] campus:" + this.campus);
-     console.log("[POPUP] campusSelecionado:" + this.campusService.campusSelecionado);
+   //  console.log("[POPUP] campus:" + this.campus);
+   //  console.log("[POPUP] campusSelecionado:" + this.campusService.campusSelecionado);
     
     });
 

@@ -70,8 +70,7 @@ export class HomePage implements OnInit {
 
 
     //this.campusService.campusSelecionado = 'teste';
-    console.log("homepage campusselecionado:" + this.campusService.campusSelecionado);
-    console.log("homepage campus.iframe:" + this.campus.iframe);
+
 
    // this.loadMap(); //Função para carregar o mapa da API do google.
   }
@@ -122,7 +121,7 @@ export class HomePage implements OnInit {
             map: this.map,
             title: this.blocos[i].nome
           });
-          console.log(this.blocos);
+      //    console.log(this.blocos);
         }
       });
 
