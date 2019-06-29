@@ -1,6 +1,6 @@
 <ion-list>
   <div *ngFor="let campus of campus">
-  <ion-item button [routerLink]="['/home', campus.id]" routerDirection="forward" (click)="campusService.campusSelecionado = campus.id;">
+  <ion-item button [routerLink]="['/', campus.id]" routerDirection="forward" (click)="campusService.campusSelecionado = campus.id;">
       {{campus.nome}}
   </ion-item>
 </div>

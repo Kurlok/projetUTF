@@ -5,8 +5,7 @@ const routes: Routes = [
   //  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
 
 //  { path: '', loadChildren: './home/home.module#HomePageModule' },
-{ path: '', redirectTo: 'home/pontagrossa', pathMatch: 'full' },
-  { path: 'home', redirectTo: 'home/pontagrossa' },
+{ path: '', redirectTo: 'pontagrossa', pathMatch: 'full' },
   { path: 'blocos', loadChildren: './blocos/blocos.module#BlocosPageModule' },
   { path: 'pesquisa', loadChildren: './pesquisa/pesquisa.module#PesquisaPageModule' },
   { path: 'agenda', loadChildren: './agenda/agenda.module#AgendaPageModule' },
@@ -14,7 +13,7 @@ const routes: Routes = [
   { path: 'cursos', loadChildren: './cursos/cursos.module#CursosPageModule' },
   { path: 'blocosCadastro', loadChildren: './blocos-cadastro/blocos-cadastro.module#BlocosCadastroPageModule' },
   { path: 'bloco/:id', loadChildren: './blocos-cadastro/blocos-cadastro.module#BlocosCadastroPageModule' },
-  { path: 'home/:id', loadChildren: './home/home.module#HomePageModule'  }
+  { path: ':id', loadChildren: './home/home.module#HomePageModule'  }
 
 ];
 
