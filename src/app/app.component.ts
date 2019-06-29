@@ -6,7 +6,16 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { PopoverController } from '@ionic/angular';
 import { MenuPopoverComponent } from './menu-popover/menu-popover.component';
 
+import {Pipe, PipeTransform, NgModule} from '@angular/core'
+import {BrowserModule, DomSanitizer} from '@angular/platform-browser'
 
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'

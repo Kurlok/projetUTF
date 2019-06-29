@@ -21,11 +21,22 @@ import { MenuPopoverComponent } from './menu-popover/menu-popover.component';
 import { CampusService } from './services/campus.service';
 import { registerLocaleData } from '@angular/common';
 
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer} from '@angular/platform-browser';
+
+
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
 
 firebase.initializeApp(environment.firebase);
 
 @NgModule({
-  declarations: [AppComponent, MenuPopoverComponent],
+  declarations: [AppComponent, MenuPopoverComponent, SafePipe],
   entryComponents: [MenuPopoverComponent],
   imports: [BrowserModule, 
     IonicModule.forRoot(), 

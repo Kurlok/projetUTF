@@ -23,23 +23,23 @@ export class BlocosService {
   private blocoCollection: AngularFirestoreCollection<Bloco>;
  
   constructor(private afs: AngularFirestore) {
-    // this.blocoCollection = this.afs.collection<any>('campus/pontagrossa/sede/monteirolobato/locais');
-    // this.blocos = this.blocoCollection.snapshotChanges().pipe(
-    //   map(actions => {
-    //     return actions.map(a => {
-    //       const data = a.payload.doc.data();
-    //       const id = a.payload.doc.id;
-    //       return { id, ...data };
-    //     });
-    //   })
-    // );
+    this.blocoCollection = this.afs.collection<any>('campus/pontagrossa/locais'); //Arrumar depois
+    this.blocos = this.blocoCollection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
   }
 
 
  
   readBlocos(campus: string) {
     campus='pontagrossa';
-    return this.afs.collection('campus/'+campus+'/locais').snapshotChanges();
+    return this.afs.collection('campus/'+campus+'/locais').snapshotChanges(); //Arrumar depois
   }
  
 

@@ -23,15 +23,19 @@ export class BlocosCadastroPage implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private blocoService: BlocosService,
     private toastCtrl: ToastController, private router: Router) { }
  
-  ngOnInit() { }
+  ngOnInit() { 
+
+  }
  
   ionViewWillEnter() {
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       this.blocoService.getBloco(id).subscribe(bloco => {
         this.bloco = bloco;
+        console.log ("[BLOCOS CADASTRO] this.bloco:" + this.bloco);
       });
     }
+    
   }
  
   addBloco() {

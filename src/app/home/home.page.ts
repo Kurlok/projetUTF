@@ -6,7 +6,10 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } fr
 import { BlocosService, Bloco } from 'src/app/services/blocos.service';
 import { Observable, Subject } from 'rxjs';
 import { Platform } from '@ionic/angular';
-import { CampusService } from '../services/campus.service';
+import { CampusService, Campus } from '../services/campus.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 declare var google;
 
@@ -16,10 +19,19 @@ declare var google;
   styleUrls: ['./home.page.scss'],
 })
 
+
 export class HomePage implements OnInit {
+
+  campus: Campus = {
+    id: '',
+    nome: '',
+    iframe: ''
+  };
+
   private blocos: any;
   private alturaJanela;
   private larguraJanela;
+  //private campus: any;
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -30,7 +42,10 @@ export class HomePage implements OnInit {
     private navCtrl: NavController,
     private blocosService: BlocosService,
     public plt: Platform,
-    protected campusService: CampusService
+    protected campusService: CampusService,
+    private activatedRoute: ActivatedRoute, 
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) { 
     plt.ready().then((readySource) => {
       this.larguraJanela = plt.width();
@@ -39,13 +54,38 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+
+    // this.campusService.readCampus().subscribe(data => {
+    //   this.campus = data.map(e => {
+    //    return {
+    //      id: e.payload.doc.id,
+    //      nome: e.payload.doc.data()['nome'],
+    //      iframe: e.payload.doc.data()['iframe']
+    //    };
+    //  })
+    //  console.log("[HOMEPAGE] campus:" + this.campus);
+    //  console.log("[HOMEPAGE] campus.iframe:" + this.campusService.campusSelecionado);
+    
+    // });
+
+
     //this.campusService.campusSelecionado = 'teste';
-    //console.log(this.campusService.campusSelecionado);
+    console.log("homepage campusselecionado:" + this.campusService.campusSelecionado);
+    console.log("homepage campus.iframe:" + this.campus.iframe);
+
    // this.loadMap(); //Função para carregar o mapa da API do google.
   }
   
-  loadMap() {
+  ionViewWillEnter() {
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (id) {
+      this.campusService.getCampus(id).subscribe(campus => {
+        this.campus = campus;
+      });
+    }
+  }
 
+  loadMap() {
     let watch = this.geolocation.watchPosition();
 
     let latLongCampus = new google.maps.LatLng(-25.051196, -50.132609);
