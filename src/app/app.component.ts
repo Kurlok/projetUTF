@@ -8,6 +8,9 @@ import { MenuPopoverComponent } from './menu-popover/menu-popover.component';
 
 import {Pipe, PipeTransform, NgModule} from '@angular/core'
 import {BrowserModule, DomSanitizer} from '@angular/platform-browser'
+import { CampusService } from './services/campus.service';
+import { Router } from '@angular/router';
+
 
 @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
@@ -27,7 +30,11 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public popoverController: PopoverController,
+    protected campusService: CampusService,
+    private router: Router
   ) {
+    if (campusService.campusSelecionado == null) campusService.campusSelecionado = 'pontagrossa'; //Define como padrão o campus pontagrossa quando abre o app.
+
     this.initializeApp();
   }
 
@@ -46,6 +53,11 @@ export class AppComponent {
     });
     return await popover.present();
   }
+
+  abrirURL(id: string) { // Método criado pois [routerLink] estava bugado.
+    this.router.navigateByUrl(this.campusService.campusSelecionado + '/' + id);
+  }
+  
 }
 export class Menu {
 

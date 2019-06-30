@@ -22,10 +22,10 @@
                   <ion-item  routerLink="" >Mapa</ion-item>
                   <ion-item  routerLink="/blocos" >Blocos</ion-item>
                   <ion-item  routerLink="/blocosCadastro" >Blocos Cadastro</ion-item>
-                  <ion-item  routerLink="/cursos"> Cursos</ion-item>
-                  <ion-item  routerLink="/pesquisa" >Locais</ion-item>
-                  <ion-item  routerLink="/agenda" >Agenda</ion-item>
-                  <ion-item  routerLink="/sobre" >Sobre o Campus</ion-item>                
+                  <ion-item  (click)="abrirURL('cursos')"> Cursos</ion-item> 
+                  <ion-item  (click)="abrirURL('pesquisa')">Locais</ion-item>
+                  <ion-item  (click)="abrirURL('agenda')">Agenda</ion-item>
+                  <ion-item  (click)="abrirURL('sobre')">Sobre o Campus</ion-item>                
                 </ion-list>
               </ion-menu-toggle>
             </ion-menu>
