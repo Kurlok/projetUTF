@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { BlocosService } from 'src/app/services/blocos.service';
 import { SalasService } from 'src/app/services/salas.service';
+import { CampusService } from 'src/app/services/campus.service';
 
 
 @Component({
@@ -20,26 +21,19 @@ export class PesquisaPage implements OnInit {
     ) { }
   
   ngOnInit() {
-    this.blocosService.readBlocos('pontagrossa').subscribe(data => { //mudar pontagrossa para uma variável
-      this.blocos = data.map(e => {
-       return {
-         id: e.payload.doc.id,
-         nome: e.payload.doc.data()['nome'],
-         descricao: e.payload.doc.data()['descricao'],
-         raio: e.payload.doc.data()['raio']
-       };
-     })
-        
-    });
+
     this.salasService.readSalas().subscribe(data => {
       this.salas = data.map(e => {
        return {
          id: e.payload.doc.id,
          nome: e.payload.doc.data()['nome'],
          descricao: e.payload.doc.data()['descricao'],
+         bloco: e.payload.doc.data()['bloco'],
          piso: e.payload.doc.data()['piso']
        };
      })
+
+     
      this.salasBackup = this.salas;
      console.log(this.blocos);
      console.log(this.salas);
@@ -64,10 +58,11 @@ filtrarLista(evt){
       if (salaAtual.nome.toLowerCase().indexOf(termoProcurado.toLowerCase()) > -1) {
         return true;
       }
-      if (salaAtual.piso && termoProcurado) {
-        if (salaAtual.piso.toLowerCase().indexOf(termoProcurado.toLowerCase()) > -1) {
+      if ((salaAtual.piso || salaAtual.bloco || salaAtual.descricao) && termoProcurado) {
+        if ((salaAtual.piso.toLowerCase().indexOf(termoProcurado.toLowerCase()) > -1) || (salaAtual.bloco.toLowerCase().indexOf(termoProcurado.toLowerCase()) > -1) || (salaAtual.descricao.toLowerCase().indexOf(termoProcurado.toLowerCase()) > -1)){
           return true;
         }
+        
         return false
       }
       return false;

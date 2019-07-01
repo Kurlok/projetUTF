@@ -58,6 +58,9 @@ export class AppComponent {
     this.router.navigateByUrl(this.campusService.campusSelecionado + '/' + id);
   }
   
+  abrirHome() { // Método criado pois [routerLink] estava bugado.
+    this.router.navigateByUrl(this.campusService.campusSelecionado);
+  }
 }
 export class Menu {
 
