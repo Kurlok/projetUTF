@@ -11,10 +11,10 @@
             </ion-row>
             <ion-row align-items-center *ngFor="let sala of salas">
                   <ion-col>
-                       {{sala.nome}}.
+                  <ion-text>  {{sala.nome}}</ion-text> 
                   </ion-col>
                   <ion-col>
-                       {{sala.piso}}
+                      <ion-text>{{sala.bloco}} - {{sala.piso}} - {{sala.descricao}}</ion-text> 
                   </ion-col>
             </ion-row>
       </ion-grid>

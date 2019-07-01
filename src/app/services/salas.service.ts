@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { CampusService } from './campus.service';
 
 
 
@@ -20,7 +21,10 @@ export class SalasService {
   private salas: Observable<Sala[]>;
   private salasCollection: AngularFirestoreCollection<Sala>;
  
-  constructor(private afs: AngularFirestore) {
+  constructor(
+    private afs: AngularFirestore,     
+    private campusService: CampusService,
+    ) {
     // this.salasCollection = this.afs.collection<Sala>('campus/pontagrossa/sede/monteirolobato/locais/blococ/salas');
     // this.salas = this.salasCollection.snapshotChanges().pipe(
     //   map(actions => {
@@ -34,8 +38,7 @@ export class SalasService {
   }
 
   readSalas() {
-
-    return this.afs.collection('campus/pontagrossa/locais/blococ/salas').snapshotChanges();
+    return this.afs.collection('campus/'+this.campusService.campusSelecionado+'/locais').snapshotChanges();
   }
 
 }
