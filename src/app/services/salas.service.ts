@@ -10,7 +10,8 @@ export interface Sala {
   id?: string,
   nome: string,
   descricao: string,
-  piso: string
+  piso: string,
+  bloco: string
 }
 
 @Injectable({
@@ -23,7 +24,7 @@ export class SalasService {
  
   constructor(
     private afs: AngularFirestore,     
-    private campusService: CampusService,
+    private campusService: CampusService
     ) {
     // this.salasCollection = this.afs.collection<Sala>('campus/pontagrossa/sede/monteirolobato/locais/blococ/salas');
     // this.salas = this.salasCollection.snapshotChanges().pipe(
@@ -40,5 +41,5 @@ export class SalasService {
   readSalas() {
     return this.afs.collection('campus/'+this.campusService.campusSelecionado+'/locais').snapshotChanges();
   }
-
+  
 }
