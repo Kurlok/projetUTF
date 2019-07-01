@@ -19,9 +19,9 @@
           <ion-menu side="start" menuId="custom" class="meu-menu">
               <ion-menu-toggle auto-hide="false">
                 <ion-list>
-                  <ion-item  routerLink="" >Mapa</ion-item>
-                  <ion-item  routerLink="/blocos" >Blocos</ion-item>
-                  <ion-item  routerLink="/blocosCadastro" >Blocos Cadastro</ion-item>
+                  <ion-item  (click)="abrirHome('')">Mapa</ion-item>
+                  <!-- <ion-item  routerLink="/blocos" >Blocos</ion-item>
+                  <ion-item  routerLink="/blocosCadastro" >Blocos Cadastro</ion-item> -->
                   <ion-item  (click)="abrirURL('cursos')"> Cursos</ion-item> 
                   <ion-item  (click)="abrirURL('pesquisa')">Locais</ion-item>
                   <ion-item  (click)="abrirURL('agenda')">Agenda</ion-item>
