@@ -3,6 +3,9 @@ import { MenuController, AlertController } from '@ionic/angular';
 import { formatDate, registerLocaleData } from '@angular/common';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import localeBr from '@angular/common/locales/pt-PT';
+import { AgendaService } from 'src/app/services/agenda.service';
+import { CampusService } from 'src/app/services/campus.service';
+import { THIS_EXPR, ThrowStmt } from '@angular/compiler/src/output/output_ast';
 registerLocaleData(localeBr)
 
 @Component({
@@ -11,6 +14,8 @@ registerLocaleData(localeBr)
   styleUrls: ['./agenda.page.scss'],
 })
 export class AgendaPage implements OnInit {
+
+  private agenda: any;
 
   event = {
     title: '',
@@ -32,12 +37,37 @@ export class AgendaPage implements OnInit {
  
  @ViewChild(CalendarComponent) myCal: CalendarComponent;
  
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string) { }
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string, private agendaService: AgendaService, campusService: CampusService) { }
  
   ngOnInit() {
-    this.resetEvent();
+    this.agendaService.readAgenda('pontagrossa').subscribe(data => { //Arrumar o pontagrossa para uma variável
+      this.agenda = data.map(e => {
+       return {
+         id: e.payload.doc.id,
+         titulo: e.payload.doc.data()['titulo'],
+         descricao: e.payload.doc.data()['descricao'],
+         startTempo: e.payload.doc.data()['startTempo'],
+         endTempo: e.payload.doc.data()['endTempo'],
+         diaTodo: e.payload.doc.data()['diaTodo'],
+       };
+     })
+     console.log("map this.agenda" + this.agenda);
+     this.event = {
+       title: this.agenda[0].titulo,
+       desc: this.agenda[0].descricao,
+       startTime: this.agenda[0].startTempo,
+       endTime: this.agenda[0].endTempo,
+       allDay: this.agenda[0].diaTodo
+     };
+     console.log(this.event.startTime);
+     console.log(this.event.startTime);
+     console.log(this.event.startTime);
+     this.eventSource.push(event);
+     this.myCal.loadEvents();
+    });
+
   }
- 
+  
   resetEvent() {
     this.event = {
       title: '',
@@ -57,7 +87,7 @@ export class AgendaPage implements OnInit {
       allDay: this.event.allDay,
       desc: this.event.desc
     }
- 
+
     if (eventCopy.allDay) {
       let start = eventCopy.startTime;
       let end = eventCopy.endTime;
