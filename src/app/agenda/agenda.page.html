@@ -9,7 +9,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <!-- Card for adding a new event  -->
+        <!-- Card for adding a new event
   <ion-card>
     <ion-card-header tappable (click)="collapseCard = !collapseCard">
       <ion-card-title>Novo Evento</ion-card-title>
@@ -39,8 +39,8 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-row *ngFor="let agenda of agenda">
-      <ion-card button [routerLink]="['/AGENDA', agenda.id]" routerDirection="forward">
+  <ion-row>
+      <ion-card>
         <ion-card-header>
           <ion-card-title>
 
@@ -50,7 +50,9 @@
          Descrição: {{ agenda.descricao }}. Data de Inicio: {{ agenda.startTempo }}. Data de Fim: {{ agenda.endTempo }}. Dia Todo? {{agenda.diaTodo}}
         </ion-card-content>
       </ion-card>
-
+      </ion-row>
+-->
+      <ion-row>
     <!-- Change the displayed calendar mode 
     <ion-col size="4">
       <ion-button expand="block" [color]="calendar.mode == 'month' ? 'primary' : 'secondary'" (click)="changeMode('month')">Mês</ion-button>

@@ -52,18 +52,23 @@ export class AgendaPage implements OnInit {
        };
      })
      console.log("map this.agenda" + this.agenda);
-     this.event = {
-       title: this.agenda[0].titulo,
-       desc: this.agenda[0].descricao,
-       startTime: this.agenda[0].startTempo,
-       endTime: this.agenda[0].endTempo,
-       allDay: this.agenda[0].diaTodo
+     var i=0;
+     while (this.agenda[i]) {
+     let event = {
+       title: this.agenda[i].titulo,
+       desc: this.agenda[i].descricao,
+       startTime: new Date(this.agenda[i].startTempo),
+       endTime: new Date(this.agenda[i].endTempo),
+       allDay: this.agenda[i].diaTodo
      };
-     console.log(this.event.startTime);
-     console.log(this.event.startTime);
-     console.log(this.event.startTime);
+     console.log(event.startTime);
+     console.log(event.startTime);
+     console.log(event.startTime);
      this.eventSource.push(event);
      this.myCal.loadEvents();
+     this.resetEvent();
+     i++;
+    }
     });
 
   }
@@ -135,8 +140,8 @@ async onEventSelected(event) {
  
   const alert = await this.alertCtrl.create({
     header: event.title,
-    subHeader: event.desc,
-    message: 'From: ' + start + '<br><br>To: ' + end,
+    subHeader:  event.desc,
+    message: '<h5>De: ' + start + '<br><br>Até: ' + end + '</h5>',
     buttons: ['OK']
   });
   alert.present();
