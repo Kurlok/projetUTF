@@ -1,4 +1,30 @@
 
 <ion-content>
-
+    <ion-grid>
+        <ion-row *ngFor="let sobre of sobre">
+          <ion-col>
+            <!-- <ion-card button [routerLink]="['/sobre', sobre.id]" routerDirection="forward">
+              <ion-card-header>
+                <ion-card-title>
+                  {{ sobre.endereco }}
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+               CEP: {{ sobre.cep }}. Telefone: {{ sobre.telefone }}.
+              </ion-card-content>
+            </ion-card> -->
+                <ion-col>
+                                <ion-img src= "{{ sobre.img }}"></ion-img>
+                </ion-col>
+                <ion-text color="secondary"><h3>{{ sobre.endereco }}</h3> </ion-text>
+                <br>
+                <ion-text color="secondary">
+                    <h3>
+                    CEP: {{ sobre.cep }} <br>
+                    Telefone: {{ sobre.telefone }}
+                    </h3>
+                </ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 </ion-content>

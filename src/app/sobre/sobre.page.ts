@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { SobreService } from '../services/sobre.service';
+import { CampusService } from '../services/campus.service';
 
 @Component({
   selector: 'app-sobre',
@@ -8,11 +10,25 @@ import { MenuController } from '@ionic/angular';
 })
 export class SobrePage implements OnInit {
 
-  constructor() { }
+  private sobre: any;
+
+  constructor(private sobreService: SobreService, campusService: CampusService) { }
 
   ngOnInit() {
+    this.sobreService.readSobre('pontagrossa').subscribe(data => { //Arrumar o pontagrossa para uma variável
+      this.sobre = data.map(e => {
+       return {
+         id: e.payload.doc.id,
+         endereco: e.payload.doc.data()['endereco'],
+         cep: e.payload.doc.data()['cep'],
+         telefone: e.payload.doc.data()['telefone'],
+         img: e.payload.doc.data()['img'],
+       };
+     })
+     console.log(this.sobre);
+    
+    });
   }
-
 }
 
 export class Menu {
@@ -33,3 +49,4 @@ export class Menu {
       this.menu.open('custom');
     }
   }
+
